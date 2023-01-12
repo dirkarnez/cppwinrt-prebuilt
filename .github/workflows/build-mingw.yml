@@ -44,17 +44,13 @@ jobs:
           cd cppwinrt && ^
           cmake.exe -G "MinGW Makefiles" ^
           --toolchain cross-mingw-toolchain.cmake ^
-          -DMINGW_BIN_PATH="%CD_LINUX%/mingw64/bin" ^
+          -DMINGW_BIN_PATH="${{ github.workspace }}\\mingw64\\bin" ^
           -DCMAKE_BUILD_TYPE=Release ^
           -DCMAKE_INSTALL_PREFIX="cmake-build/${{ env.cmakeInstallationPath }}" ^
           -B./cmake-build &&^
           cd cmake-build &&^
           cmake --build . &&^
           cmake --install . 
-            
-            
-            
-            
             
       - name: Archive Release
         uses: thedoctor0/zip-release@master
