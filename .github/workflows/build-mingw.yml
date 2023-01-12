@@ -25,6 +25,7 @@ jobs:
         run: |
           curl https://github.com/brechtsanders/winlibs_mingw/releases/download/11.2.0-12.0.1-9.0.0-r1/winlibs-x86_64-posix-seh-gcc-11.2.0-mingw-w64-9.0.0-r1.zip -L --output winlibs-x86_64-posix-seh-gcc-11.2.0-mingw-w64-9.0.0-r1.zip &&^
           7z.exe x winlibs-x86_64-posix-seh-gcc-11.2.0-mingw-w64-9.0.0-r1.zip -o"C:\winlibs-x86_64-posix-seh-gcc-11.2.0-mingw-w64-9.0.0-r1\" &&^
+          cd /d "C:\winlibs-x86_64-posix-seh-gcc-11.2.0-mingw-w64-9.0.0-r1\mingw64\" &&^
           dir
           
       - name: curl cmake-3.22.2-windows-x86_64.zip
@@ -38,15 +39,15 @@ jobs:
         shell: cmd
         run: |
           set PATH=^
-          C:\winlibs-x86_64-posix-seh-gcc-11.2.0-mingw-w64-9.0.0-r1;^
-          C:\winlibs-x86_64-posix-seh-gcc-11.2.0-mingw-w64-9.0.0-r1\bin;^
+          C:\winlibs-x86_64-posix-seh-gcc-11.2.0-mingw-w64-9.0.0-r1\mingw64;^
+          C:\winlibs-x86_64-posix-seh-gcc-11.2.0-mingw-w64-9.0.0-r1\mingw64\bin;^
           ${{ github.workspace }}\cmake-3.22.2-windows-x86_64\bin;
           gcc --version &&^
           set CD_LINUX=%CD:\=/%
           cd cppwinrt && ^
           cmake.exe -G "MinGW Makefiles" ^
           --toolchain cross-mingw-toolchain.cmake ^
-          -DMINGW_BIN_PATH="C:/winlibs-x86_64-posix-seh-gcc-11.2.0-mingw-w64-9.0.0-r1/bin" ^
+          -DMINGW_BIN_PATH="C:/winlibs-x86_64-posix-seh-gcc-11.2.0-mingw-w64-9.0.0-r1/mingw64/bin" ^
           -DCMAKE_BUILD_TYPE=Release ^
           -DCMAKE_INSTALL_PREFIX="cmake-build/${{ env.cmakeInstallationPath }}" ^
           -B./cmake-build &&^
